@@ -4,10 +4,8 @@ namespace App\Filament\Sarab\Resources;
 
 use App\Filament\Sarab\Resources\ProjectResource\Pages;
 use App\Models\Project;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
@@ -26,54 +24,53 @@ class ProjectResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
+        return $form->schema([
+            TextInput::make('title')
+                ->required()
+                ->maxLength(255),
 
-                TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
+            RichEditor::make('description')
+                ->required(),
 
-                RichEditor::make('description')
-                    ->required(),
+            Select::make('category')
+                ->options([
+                    'AI' => 'AI',
+                    'Web' => 'Web',
+                    'Fintech' => 'Fintech',
+                    'App' => 'App',
+                ])
+                ->required(),
 
-                Select::make('category')
-                    ->options([
-                        'AI' => 'AI',
-                        'Web' => 'Web',
-                        'Fintech' => 'Fintech',
-                        'App' => 'App',
-                    ])
-                    ->required(),
+            TextInput::make('link')
+                ->label('Project URL')
+                ->url()
+                ->nullable(),
 
-                TextInput::make('link')
-                    ->label('Project URL')
-                    ->url()
-                    ->nullable(),
-
-                FileUpload::make('image')
-                    ->label('Project Image')
-                    ->image() // validate only images
-                    ->imagePreviewHeight('250') // shows preview
-                    ->directory('projects') // save in storage/app/public/projects
-                    ->disk('public') // important
-                    ->required()
-                    ->acceptedFileTypes([
-                        'image/jpeg',
-                        'image/png',
-                        'image/webp',
-                        'image/svg+xml', // optional
-                    ]),
-            ]);
+            FileUpload::make('image')
+                ->label('Project Image')
+                ->image()
+                ->directory('projects')
+                ->disk('public')
+                ->visibility('public')
+                ->imagePreviewHeight('250')
+                ->required()
+                ->acceptedFileTypes([
+                    'image/jpeg',
+                    'image/png',
+                    'image/webp',
+                    'image/svg+xml',
+                ]),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-
                 ImageColumn::make('image')
                     ->disk('public')
-                    ->square(), // nice square preview
+                    ->visibility('public')
+                    ->height(60),
 
                 TextColumn::make('title')
                     ->searchable(),
