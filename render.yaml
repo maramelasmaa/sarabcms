@@ -10,7 +10,8 @@ services:
       php artisan config:clear
       php artisan route:clear
       php artisan view:clear
-      npm ci
+      npm install --include=optional
+      npm rebuild
       npm run build
     startCommand: |
       php artisan migrate --force
@@ -20,6 +21,8 @@ services:
     envVars:
       - key: APP_NAME
         value: SARAB
+      - key: NODE_VERSION
+        value: 20
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
