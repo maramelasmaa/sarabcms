@@ -1,28 +1,15 @@
 services:
   - type: web
     name: sarabbb-app
-    runtime: php
+    runtime: docker
     plan: free
     region: oregon
     rootDir: .
-    buildCommand: |
-      composer install --no-dev --optimize-autoloader
-      php artisan config:clear
-      php artisan route:clear
-      php artisan view:clear
-      npm install --include=optional
-      npm rebuild
-      npm run build
-    startCommand: |
-      php artisan migrate --force
-      php artisan serve --host=0.0.0.0 --port=$PORT
     healthCheckPath: /
     autoDeploy: true
     envVars:
       - key: APP_NAME
         value: SARAB
-      - key: NODE_VERSION
-        value: 20
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
