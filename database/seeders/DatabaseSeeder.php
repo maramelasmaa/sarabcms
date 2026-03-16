@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        User::where('email', 'sarab@gmail.com')->delete();
+        $imagePath = 'images/media/1694258162web.jpg';
 
+        User::where('email', 'sarab@gmail.com')->delete();
         User::create([
             'name' => 'Sarab',
             'email' => 'sarab@gmail.com',
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
         if (! Home::query()->exists()) {
             Home::create([
                 'order' => 1,
-                'image' => 'images/media/1694258162web.jpg',
+                'image' => $imagePath,
                 'h1' => 'Welcome to Sarab Tech',
                 'h2' => 'Build with confidence',
                 'body' => 'This is example homepage slider content seeded for Filament.',
@@ -44,7 +45,7 @@ class DatabaseSeeder extends Seeder
                 'icon' => 'fa fa-code',
                 'title' => 'Example Service',
                 'description' => 'This is example service content. You can edit it in Filament.',
-                'image' => 'images/media/1694258162web.jpg',
+                'image' => $imagePath,
                 'url' => '/portfolio',
             ]);
         }
@@ -63,9 +64,9 @@ class DatabaseSeeder extends Seeder
                 'heading1' => 'About Sarab',
                 'heading2' => 'Example about heading',
                 'description' => 'This is example about content seeded for the Filament panel.',
-                'image1' => 'images/media/1694258162web.jpg',
-                'image2' => 'images/media/1694258162web.jpg',
-                'image3' => 'images/media/1694258162web.jpg',
+                'image1' => $imagePath,
+                'image2' => $imagePath,
+                'image3' => $imagePath,
                 'features' => [
                     'Example feature one',
                     'Example feature two',
@@ -75,7 +76,7 @@ class DatabaseSeeder extends Seeder
 
         if (! Project::query()->exists()) {
             Project::create([
-                'image_path' => 'images/media/1694258162web.jpg',
+                'image_path' => $imagePath,
                 'title' => 'Example Project',
                 'slug' => 'example-project',
                 'category' => 'Web',
@@ -86,7 +87,7 @@ class DatabaseSeeder extends Seeder
         if (! BlogPost::query()->exists()) {
             BlogPost::create([
                 'title' => 'Example Blog Post',
-                'image' => 'images/media/1694258162web.jpg',
+                'image' => $imagePath,
                 'slug' => 'example-blog-post',
                 'excerpt' => 'Short example excerpt for seeded blog post.',
                 'date' => now()->toDateString(),
